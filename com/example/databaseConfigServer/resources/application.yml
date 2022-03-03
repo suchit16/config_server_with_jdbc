@@ -1,0 +1,37 @@
+spring:
+  cloud:
+    config:
+      server:
+        jdbc:
+          sql: select KEY, VALUE from PROPERTIES where APPLICATION=? and PROFILE=? and LABEL=?
+          order: 1
+  application:
+    name: database-config-server
+  profiles:
+    active: jdbc
+  datasource:
+    url: jdbc:postgresql://localhost:5432/test
+    username: postgres
+    password: postgres
+    hikari:
+      connectionTimeout: 20000
+      maximumPoolSize: 5
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate.ddl-auto: create
+    properties:
+      hibernate:
+        show_sql: true
+        globally_quoted_identifiers: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+server:
+  port: 8677
+
+  endpoints:
+    web:
+      expose:
+        include: health
+  endpoint:
+    health:
+      show-details: always
