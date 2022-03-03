@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: testapp
+  profile:
+    active: default
+  cloud:
+    config:
+      enabled: true
+      uri: http://localhost:8677
+      profile: dev
+      label: 1
